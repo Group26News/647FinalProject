@@ -4,6 +4,8 @@
   $password = "Naif7eef";
   $dbname = "borthmarco";
   $mysqli = new mysqli($servername, $username, $password, $dbname);
+  $StartDate = $_POST["StartDate"];
+  $EndDate = $_POST["EndDate"];
 
   /* check connection */
   if ($mysqli->connect_errno) {
@@ -11,15 +13,18 @@
     exit();
   }
 
-  $query = "SELECT Title, Username FROM Article INNER JOIN Writer ON Author = Username";
 
+  $query = "SELECT Title, DatePublished  FROM Article INNER JOIN Statistics ON ArticleID = PackageID GROUP BY Title";
   if ($result = $mysqli->query($query)) {
-    echo "<table><tr><th> Article </th><th> Author </th></tr>";
+    echo "<table><tr><th> Title </th><th> Date Published </th></tr>";
     if($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["Title"] . "</td><td>" . $row["Username"] . "</td></tr>";
+        echo "<tr><td>" . $row["Title"] . "</td><td>" . $row["DatePublished"] . "</td></tr>";
       }
+    } else {
+      echo "<tr><td> No results found! </td></tr>";
     }
+
 
     /* free result set */
     $result->free();
