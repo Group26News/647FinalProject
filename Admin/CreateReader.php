@@ -6,10 +6,10 @@
   $mysqli = new mysqli($servername, $username, $password, $dbname);
   $username = $_POST["Username"];
   $UserDescription = $_POST["UserDescription"];
-  $JoinDate = date("Y-m-d");
+  $JoinDate = date("Y-m-d-h-m-s");
 
   if ($username == "") {
-    echo "Enter User Account info.";
+    echo "Enter Reader Account info.";
   } else {
     /* check connection */
     if ($mysqli->connect_errno) {
@@ -17,10 +17,10 @@
       exit();
     }
 
-    $query = "INSERT INTO User (Username, UserDescription, $JoinDate) VALUES ('$username', '$UserDescription', '$JoinDate')";
+    $query = "INSERT INTO Reader (Username, UserDescription, JoinDate) VALUES ('$username', '$UserDescription', '$JoinDate')";
 
     if ($result = $mysqli->query($query)) {
-      echo "User Account successfully Created";
+      echo "Reader Account successfully Created";
 
       /* fetch associative array */
       while ($row = $result->fetch_assoc()) {
@@ -30,7 +30,7 @@
       /* free result set */
       $result->free();
     } else {
-      echo "User Account already Created";
+      echo "Reader Account already Created";
     }
   }
 
