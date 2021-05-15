@@ -11,7 +11,7 @@
     exit();
   }
 
-  $query = "SELECT * FROM Article, Statistics;";
+  $query = "SELECT * FROM Article, Statistics WHERE ArticleID = PackageID";
 
   echo "<table>";
   if ($result = $mysqli->query($query)) {
