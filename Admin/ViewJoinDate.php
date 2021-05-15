@@ -14,13 +14,13 @@
   }
 
 
-  $query = "SELECT Title, DatePublished  FROM Article INNER JOIN Statistics ON ArticleID = PackageID GROUP BY Title HAVING DatePublished >= " . $StartDate; //. " AND DatePublished < " . $EndDate;
+  $query = "SELECT * FROM Reader GROUP BY Username HAVING JoinDate >= $StartDate"; #Between '2018-08-08' AND " . $FinalDate; #. $StartDate . " AND JoinDate <= " . $EndDate; #AND JoinDate <= " . $EndDate;
 
   if ($result = $mysqli->query($query)) {
-    echo "<table><tr><th> Title </th><th> Date Published </th></tr>";
+    echo "<table><tr><th> Reader </th><th> User Description </th><th> User Description </th></tr>";
     if($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["Title"] . "</td><td>" . $row["DatePublished"] . "</td></tr>";
+        echo "<tr><td>" . $row["Username"] . "</td><td>" . $row["UserDescription"] . "</td><td>" . $row["JoinDate"] . "</td></tr>";
       }
     } else {
       echo "<tr><td> No results found! </td></tr>";

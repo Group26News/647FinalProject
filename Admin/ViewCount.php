@@ -13,7 +13,7 @@
   }
 
 
-  $query = "SELECT Title, ViewCount  FROM Article INNER JOIN Statistics ON ArticleID = PackageID GROUP BY Title HAVING ViewCount > " . $ViewNumber;
+  $query = "SELECT Title, ViewCount  FROM Article INNER JOIN Statistics ON ArticleID = PackageID GROUP BY Title HAVING ViewCount >= " . $ViewNumber;
 
   if ($result = $mysqli->query($query)) {
     echo "<table><tr><th> Title </th><th> Number of Views </th></tr>";
