@@ -4,8 +4,6 @@
   $password = "Naif7eef";
   $dbname = "borthmarco";
   $mysqli = new mysqli($servername, $username, $password, $dbname);
-  $StartDate = $_POST["StartDate"];
-  $FinishDate = $_POST["EndDate"];
 
   /* check connection */
   if ($mysqli->connect_errno) {
@@ -13,28 +11,28 @@
     exit();
   }
 
+  $query = "SELECT * FROM Comment";
 
-  $query = "SELECT * FROM Reader WHERE JoinDate >= $StartDate"; #AND JoinDate $FinishDate";
-  #JoinDate >= $StartDate INTERSECT SELECT * FROM Reader GROUP BY Reader HAVING JoinDate <= $EndDate";
-  #Between '2018-08-08' AND " . $FinalDate; #. $StartDate . " AND JoinDate <= " . $EndDate; #AND JoinDate <= " . $EndDate;
-
+  echo "<table>";
   if ($result = $mysqli->query($query)) {
-    echo "<table><tr><th> Reader </th><th> User Description </th><th> User Description </th></tr>";
+    echo "<tr><th> Comment ID </th><th> Arcitle ID </th><th> Author </th><th> Date Edited </th><th> Text </th></tr>";
     if($result->num_rows > 0) {
       while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["Username"] . "</td><td>" . $row["UserDescription"] . "</td><td>" . $row["JoinDate"] . "</td></tr>";
+        echo "<tr>";
+        echo "<td>" . $row["CommentID"] . "</td><td>" . $row["ArticleID"] . "</td><td>" . $row["Title"] . "</td><td>" . $row["Author"] . "</td><td>" . $row["DateEdited"] . "</td>";
+        echo "<td>" . $row["Text"] . "</td>";
+        echo "</tr>";
       }
     } else {
       echo "<tr><td> No results found! </td></tr>";
     }
-
 
     /* free result set */
     $result->free();
   } else {
     echo "<tr><td>Error!</td></tr>";
   }
-  echo "<table>";
+  echo "</table>";
 
   /* close connection */
   $mysqli->close();
